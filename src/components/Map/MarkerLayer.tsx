@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react';
-import * as maplibregl from 'maplibre-gl';
+import mapboxgl from 'mapbox-gl';
 import { Coordinate } from '../../types/geo';
 
 interface MarkerLayerProps {
-  map: maplibregl.Map | null;
+  map: mapboxgl.Map | null;
   targetCoord: Coordinate | null;
 }
 
 export function MarkerLayer({ map, targetCoord }: MarkerLayerProps) {
-  const markerRef = useRef<maplibregl.Marker | null>(null);
+  const markerRef = useRef<mapboxgl.Marker | null>(null);
 
   useEffect(() => {
     if (!map || !targetCoord) return;
@@ -17,7 +17,7 @@ export function MarkerLayer({ map, targetCoord }: MarkerLayerProps) {
       const el = document.createElement('div');
       el.className = 'marker-cyan';
       
-      markerRef.current = new maplibregl.Marker({ element: el })
+      markerRef.current = new mapboxgl.Marker({ element: el })
         .setLngLat([targetCoord.lng, targetCoord.lat])
         .addTo(map);
     } else {

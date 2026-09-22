@@ -1,11 +1,11 @@
 import { useRef, useCallback, useState } from 'react';
-import * as maplibregl from 'maplibre-gl';
+import mapboxgl from 'mapbox-gl';
 import { Coordinate, MapViewState } from '../types/geo';
 
 export function useMap() {
-  const mapRef = useRef<maplibregl.Map | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
   const [viewState, setViewState] = useState<MapViewState>({
-    center: { lat: 90, lng: 0 },
+    center: { lat: 85, lng: 0 },
     zoom: 2
   });
   const [cursorCoords, setCursorCoords] = useState<Coordinate | null>(null);

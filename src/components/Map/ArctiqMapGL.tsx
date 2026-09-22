@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { useMap } from '../../hooks/useMap';
 import { MarkerLayer } from './MarkerLayer';
 import { Header } from '../layout/Header';
@@ -21,18 +21,19 @@ export function ArctiqMapGL() {
     flyTo
   } = useMap();
 
-  const [mapInstance, setMapInstance] = useState<maplibregl.Map | null>(null);
+  const [mapInstance, setMapInstance] = useState<mapboxgl.Map | null>(null);
 
   useEffect(() => {
     if (!mapContainer.current || mapRef.current) return;
 
-    const map = new maplibregl.Map({
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+
+    const map = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'https://tiles.openfreemap.org/styles/dark',
+      style: 'mapbox://styles/mapbox/streets-v12',
       center: [viewState.center.lng, viewState.center.lat],
       zoom: viewState.zoom,
-      // @ts-ignore - maplibregl types might not have globe projection depending on version
-      projection: { type: 'globe' }
+      projection: 'mercator'
     });
 
     map.on('move', () => {
@@ -42,7 +43,7 @@ export function ArctiqMapGL() {
       });
     });
 
-    map.on('mousemove', (e: maplibregl.MapMouseEvent) => {
+    map.on('mousemove', (e: mapboxgl.MapMouseEvent) => {
       setCursorCoords({ lat: e.lngLat.lat, lng: e.lngLat.lng });
     });
 
