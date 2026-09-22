@@ -1,0 +1,3 @@
+GitHub- https://github.com/nihal81788/NAUTICA
+Climate Data Store UID- https://cds.climate.copernicus.eu/api
+Climate Data Store API- 703a6c2e-d0a0-485c-ac13-c7db5975fe36
